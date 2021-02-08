@@ -43,30 +43,33 @@ Your C program should conform to the following specification:
 ### Starter Code:
 
 ```
-import java.util.Scanner;
+/********************************/
+/* Program Name:                */
 
-class checksum  
-{  
+#include "stdio.h"
+#include "stdlib.h"
 
-  public static void main(String args[]) {
+#define max_int (255)
+#define byte (char)
 
-    final int max_int = 255;  // The maximum size for the input
-    int count = 10;           // The number of integers to read from stdin
-    int sum = 0;              // Note that the "sum" might exceed max_int
-    int checksum = 0;         // The value of the 6th input integer
-    int quotient;             // The result of evaluating the assignment:  quotient   = sum / (max_int + 1);
-    int remainder;            // The result of evaluating the assignment:  remainder  = sum % (max_int + 1 );
-    int complement;           // The result of evaluationg the assignment: complement = max_int - sum;
+int main (int argc, char * argv[], char ** envp) {
 
-    Scanner stdin = new Scanner(System.in);
+  int count = 10;
+  int sum = 0;   
+  byte checksum; 
+  byte complement;
+
+  /* the following is the prototype for the read system call */
+  /* int read(int fildes, void *buf, size_t nbyte);  */
 ```
 
 ```
-  System.out.printf("Stored Checksum: %d, Computed Checksum: %d\n", checksum, complement);
+  fprintf(stdout, "Stored Checksum: %d, Computed Checksum: %d\n", checksum, complement);
   if (checksum != complement ) {
-    System.err.printf("Error Detected!\n");  
+    fprintf(stdout, "Error Detected!\n"); 
+    return 1;
   }
-  
+  return 0;
 }
 ```
 
