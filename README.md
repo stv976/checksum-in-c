@@ -1,5 +1,5 @@
-# Checksum
-### COMP122 Pre-assessment Program: Generating a checksum value.
+# Checksum.c
+### COMP122: Generating a checksum value using a buffer
 
 ```
 check·sum | ˈCHekˌsəm |
@@ -10,29 +10,35 @@ digital data, against which later comparisons can be made to detect errors in th
 
 
 # Purpose:
-This program is being assigned to start you programming right away in COMP 122. The program is also being used as an assessment instrument for the professor.  Via your solutions, the professor will be able to adjust the content the introductory material of the class a bit to review or to reinforce various topics covered in COMP110 (which is a prerequiste for this class). 
+Now that you have demostrated the ability to write a Java program to compute a checksum, your task is to write the same program in C. The algorithm, however, is slighlty different to perform the checksum incremently within a loop.  This algorthm was described in class.  Also within this implementation you must use a signal 'read' system call to obtain 10 bytes used as the input to the program. 
 
+The purpose of this assignment is as follows:
+  1. Introduce you to the C program language and to demostrate that because you know Java you already know a fair amount of C.
+  1. Familize yourself with the 'make' utility used to maintain software projects.
+  1. Establish an understanding of  OS system calls and the use buffers.
+  
 
 # Assignment:
-1. Write a Java program that computes a simple checksum of 8-bit integers.  This program is *based* upon the calculation of the checksum value of a IPv4 header, defined by RFC791. 
+1. Fork this repository as a new software project
+1. Use 'git' as part of your software development process
+1. Write a C program that computes a simple checksum of 10 8-bit integers.  This program is *based* upon the calculation of the checksum value of a IPv4 header, defined by RFC791. 
+1. Provide the URL of your project as the sumbisssion to this assignment.
 
-1. Time the execution of your program, as well as two other programs provided by the professor.
+Your C program should conform to the following specification:
 
-This program should conform to the following specification:
-
-  * Program name: checksum.java
-  * Reads 10 non-negative integers from standard input (stdin), with each integer value in the range of 0..2^8-1 (I.e., 0..255). 
-  * Stores the 6th input integer into a variable called "checksum", and resets this input value to zero (0).
-  * Stores the sum of the integers read from stdin into a variable called "sum".
-  * Performs integer division on this sum using 2^8 as the divisor to yield both a quotient and a remainder. These values are then stored in the variables "quotient" and "remainder", respectively.
-  * Adds the values of "quotient" and "remainder" together, and stores this value into the variable "sum".
-  * Subtracts this new value of "sum" from 2^8-1, and stores the result in a variable called "complement".
-  * Outputs the value of "checksum" and "complement" to standard output (System.out).
+  * Program name: checksum
+  * Reads 10 bytes from standard input (stdin), using the 'read' system call
+  * Interpets or casts each of these bytes as an integer value in the range of 0..2^8-1 (I.e., 0..255). 
+  * Via a loop, examines each of these bytes in turn,
+     * computes the running 1's complement sum for 8-bit numbers
+     * saves the 6th byte into a variable called "checksum", and use the value of zero (0) instead for the calculation of the sum
+  * Performs the one's complement of the final sum and saves this value to a variable called "complement"
+  * Outputs the value of "checksum" and "complement" to standard output (stdout) via the printf C library call
   * If the value of "checksum" and "complement" are not the same, outputs the string "Error Detected!" to standard error (stderr).
 
 
 ### Minimum Validation Checks:
-* Ensure that all input values are the correct range.  You may abort the program otherwise.
+* I leave this up to you.  Document these validation checks as part of a summary documentation at the top of the program.
 
 ### Starter Code:
 
