@@ -1,14 +1,24 @@
 CCFLAGS=-g -DMAIN
-SOURCE=int2byte.c checksum.c
+SOURCE=ints2bytes.c checksum.c
 
-all: int2byte checksum
+all: ints2bytes checksum
 
-test: int2byte checksum
-	cat 156.txt | int2byte | checksum
-	cat 229.txt | int2byte | checksum
-	cat 81.txt  | int2byte | checksum
+test: checksum create_input
+	checksum < 156.bytes
+	checksum < 229.bytes
+	checksum < 81.bytes
 
-int2byte: int2byte.c
+create_input: ints2byte
+	ints2bytes < 156.txt > 156.bytes
+	ints2bytes < 229.txt > 229.bytes
+	intes2bytes < 81.txt > 81.bytes
+
+display_input:
+	od -o i1 156.bytes
+	od -o i1 229.bytes
+	od -o i1 81.bytes
+
+ints2bytes: ints2bytes.c
 
 checksum: checksum.o
 
