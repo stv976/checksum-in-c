@@ -16,7 +16,7 @@ The purpose of this assignment is as follows:
   1. Introduce you to the C program language and to demostrate that because you know Java you already know a fair amount of C.
   1. Familize yourself with the 'make' utility used to maintain software projects.
   1. Establish an understanding of  OS system calls and the use buffers.
-  
+
 
 # Assignment:
 1. Fork this repository as a new software project
@@ -37,9 +37,10 @@ Your C program should conform to the following specification:
   * Outputs the value of "checksum" and "complement" to standard output (stdout) via the printf C library call
   * If the value of "checksum" and "complement" are not the same, outputs the string "Error Detected!" to standard error (stderr).
 
-Note that we 
+
 ### Minimum Validation Checks:
 * I leave this up to you.  Document these validation checks as part of a summary documentation at the top of the program.
+
 
 ### Starter Code:
 
@@ -80,6 +81,8 @@ int main (int argc, char * argv[], char ** envp) {
   return 0;
 }
 ```
+
+
 ### Developement Process
 You can develop this program using any editor of your choosing on any platform. During this process, you should beginning to integrate the use of git.
 
