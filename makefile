@@ -4,14 +4,14 @@ SOURCE=ints2bytes.c checksum.c
 all: ints2bytes checksum
 
 test: checksum create_input
-	checksum < 156.bytes
-	checksum < 229.bytes
-	checksum < 81.bytes
+	./checksum < 156.bytes
+	./checksum < 229.bytes
+	./checksum < 81.bytes
 
 create_input: ints2bytes
-	ints2bytes < 156.txt > 156.bytes
-	ints2bytes < 229.txt > 229.bytes
-	intes2bytes < 81.txt > 81.bytes
+	./ints2bytes < 156.txt > 156.bytes
+	./ints2bytes < 229.txt > 229.bytes
+	./ints2bytes < 81.txt > 81.bytes
 
 display_input:
 	od -o i1 156.bytes
