@@ -8,7 +8,7 @@ test: checksum create_input
 	checksum < 229.bytes
 	checksum < 81.bytes
 
-create_input: ints2byte
+create_input: ints2bytes
 	ints2bytes < 156.txt > 156.bytes
 	ints2bytes < 229.txt > 229.bytes
 	intes2bytes < 81.txt > 81.bytes
@@ -22,13 +22,13 @@ ints2bytes: ints2bytes.c
 
 checksum: checksum.o
 
-checksum.o: checksum.c checksum.h
+checksum.o: checksum.c 
 	$(CC) -o checksum.o -c $(CCFLAGS) checksum.c
 
-checksum.i: checksum.c checksum.h
+checksum.i: checksum.c 
 	$(CC) -o checksum.i -E checksum.c
 
-checksum.s: checksum.c checksum.h
+checksum.s: checksum.c 
 	$(CC) -o checksum.s -S checksum.c
 
 checksum.x86: tube.s
@@ -40,8 +40,10 @@ checksum.mips: checksum.o
 	touch checksum.mips
 
 clean:
+	rm -f ints2bytes *.bytes
 	rm -f checksum checksum.o checksum.i checksum.s checksum.x86
 	rm -f *~ \#*
+
 
 
 
