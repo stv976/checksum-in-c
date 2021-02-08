@@ -1,5 +1,5 @@
-# Checksum
-### COMP122 Pre-assessment Program: Generating a checksum value.
+# Checksum.c
+### COMP122: Generating a checksum value using a buffer
 
 ```
 check·sum | ˈCHekˌsəm |
@@ -10,115 +10,119 @@ digital data, against which later comparisons can be made to detect errors in th
 
 
 # Purpose:
-This program is being assigned to start you programming right away in COMP 122. The program is also being used as an assessment instrument for the professor.  Via your solutions, the professor will be able to adjust the content the introductory material of the class a bit to review or to reinforce various topics covered in COMP110 (which is a prerequiste for this class). 
+Now that you have demostrated the ability to write a Java program to compute a checksum, your task is to write the same program in C. The algorithm, however, is slighlty different to perform the checksum incremently within a loop.  This algorthm was described in class.  Also within this implementation you must use a signal 'read' system call to obtain 10 bytes used as the input to the program. 
+
+The purpose of this assignment is as follows:
+  1. Introduce you to the C program language and to demostrate that because you know Java you already know a fair amount of C.
+  1. Familize yourself with the 'make' utility used to maintain software projects.
+  1. Establish an understanding of  OS system calls and the use buffers.
 
 
 # Assignment:
-1. Write a Java program that computes a simple checksum of 8-bit integers.  This program is *based* upon the calculation of the checksum value of a IPv4 header, defined by RFC791. 
+1. Fork this repository as a new software project
+1. Use 'git' as part of your software development process
+1. Write a C program that computes a simple checksum of 10 8-bit integers.  
+   * This program is *based* upon the calculation of the checksum value of a IPv4 header, defined by RFC791. 
+   * The algorithm and calculations was presented in class and demostrated via the "checksum calc" spreadsheet.
+1. Provide the URL of your project and a script file as the submission to this assignment.
 
-1. Time the execution of your program, as well as two other programs provided by the professor.
-
-This program should conform to the following specification:
-
-  * Program name: checksum.java
-  * Reads 10 non-negative integers from standard input (stdin), with each integer value in the range of 0..2^8-1 (I.e., 0..255). 
-  * Stores the 6th input integer into a variable called "checksum", and resets this input value to zero (0).
-  * Stores the sum of the integers read from stdin into a variable called "sum".
-  * Performs integer division on this sum using 2^8 as the divisor to yield both a quotient and a remainder. These values are then stored in the variables "quotient" and "remainder", respectively.
-  * Adds the values of "quotient" and "remainder" together, and stores this value into the variable "sum".
-  * Subtracts this new value of "sum" from 2^8-1, and stores the result in a variable called "complement".
-  * Outputs the value of "checksum" and "complement" to standard output (System.out).
+Your C program should conform to the following specification:
+  * Program name: checksum
+  * Reads 10 bytes from standard input (stdin), using the 'read' system call
+  * Interpets or casts each of these bytes as an integer value in the range of 0..2^8-1 (I.e., 0..255). 
+  * Via a loop, examines each of these bytes in turn,
+     * computes the running 1's complement sum for 8-bit numbers
+     * saves the 6th byte into a variable called "checksum", and use the value of zero (0) instead for the calculation of the sum
+  * Performs the one's complement of the final sum and saves this value to a variable called "complement"
+  * Outputs the value of "checksum" and "complement" to standard output (stdout) via the printf C library call
   * If the value of "checksum" and "complement" are not the same, outputs the string "Error Detected!" to standard error (stderr).
 
 
 ### Minimum Validation Checks:
-* Ensure that all input values are the correct range.  You may abort the program otherwise.
+* I leave this up to you.  Document these validation checks as part of a summary documentation at the top of the program.
+
 
 ### Starter Code:
 
 ```
-import java.util.Scanner;
+/********************************/
+/* Program Name:                */
+/* Author:                      */
+/* Date:                        */
+/********************************/
+/* Description:                 */
+/* Validation Checks:           */
+/* Enhancements:                */
+/********************************/
 
-class checksum  
-{  
+#include "stdio.h"
+#include "stdlib.h"
 
-  public static void main(String args[]) {
+#define max_int (255)
+#define byte (char)
 
-    final int max_int = 255;  // The maximum size for the input
-    int count = 10;           // The number of integers to read from stdin
-    int sum = 0;              // Note that the "sum" might exceed max_int
-    int checksum = 0;         // The value of the 6th input integer
-    int quotient;             // The result of evaluating the assignment:  quotient   = sum / (max_int + 1);
-    int remainder;            // The result of evaluating the assignment:  remainder  = sum % (max_int + 1 );
-    int complement;           // The result of evaluationg the assignment: complement = max_int - sum;
+int main (int argc, char * argv[], char ** envp) {
 
-    Scanner stdin = new Scanner(System.in);
+  int count = 10;
+  int sum = 0;   
+  byte checksum; 
+  byte complement;
+
+  /* the following is the prototype for the read system call */
+  /* int read(int fildes, void *buf, size_t nbyte);  */
 ```
 
 ```
-  System.out.printf("Stored Checksum: %d, Computed Checksum: %d\n", checksum, complement);
+  fprintf(stdout, "Stored Checksum: %d, Computed Checksum: %d\n", checksum, complement);
   if (checksum != complement ) {
-    System.err.printf("Error Detected!\n");  
+    fprintf(stdout, "Error Detected!\n"); 
+    return 1;
   }
-  
+  return 0;
 }
 ```
 
-### Testing:
-Use the following to test your program.
 
-```
-$ java checksum < 156.txt
-Stored Checksum: 156, Computed Checksum: 156
-```
+### Developement Process
+You can develop this program using any editor of your choosing on any platform. During this process, you should beginning to integrate the use of git.
 
-```
-$ java checksum < 229.txt
-Stored Checksum: 229, Computed Checksum: 132
-Error Detected!
-```
+The following are suggestive steps:
+* fork this github repository to create you own version of the software
+* clone the repository onto your development computer
+* REPEAT
+   1. develop a incremental version of your code that works
+   1. commit your work into your local repo
+   1. push your work into your github repo
+   1. take a break
+* UNTIL complete
 
+### Final Validate and Submission
+To obtain credit for this assignment, you must ensure your program works correctly on ssh.sandbox.csun.edu.  This server is shared resource in which you can finalize you work and the professor can validate this work.  The final steps for validation are as follows:
+
+* Clone your github repo onto ssh.sandbox.csun.edu
 ```
-$ java checksum < 81.txt
-Stored Checksum: 81, Computed Checksum: 81
-```
-
-The file "47201.txt" is a correct test case for the enhanced program using 16-bit integers.
-
-### Timing the Program:
-Once you have your program working, you need to time the execution of the program. Moreover, you should compare your time to the execution time of two other programs written by the professor.  The first program was written in Java, and the second in C.  You should expect to see that the Java programs run much slower that the corresponding C program.
-
-For this part of the assignment, you need to ensure your program works correctly on the ssh.sandbox.csun.edu server.  Thsi is the server in which the executing times will be perform.
-
-```
-$ scp checksum.java ssh.sandbox.csun.edu:    # Secure copy your program to the ssh.sandbox.csun.edu server.
-$ scp 156.txt ssh.sandbox.csun.edu:          # Secure copy the 156 test case to the ssh.sandbox.csun.edu server.
-$ ssh ssh.sandbox.csun.edu                   # Log into the ssh.sandbox.csun.edu server
-$ javac checksum.java                        # Compile your checksum program
+$ ssh ssh.sandbox.csun.edu
+$ mkdir -p comp122 ; cd comp122              # Optional: create a subdirectory for comp122
+$ git clone $URL                             # Clone your repo
+$ cd checksum.c                              # Change to the correct working directory
+$ make                                       # Use the make command to build all necessary software components 
 ```
 
-Now that you have a working program on the server, let's time and compare execution times.  Here we use the 'script' program to record this activity. The file 'timing
-
+* Test your program:
 ```
-$ script checksum.typescript                 # Start and record a session, with the session recorded in the checksum.typescript file
-$ java checksum < 156.txt                    # Run your checksum program to make sure things are working
-$ pushd ~steve/comp122/checksum              # Temporarily change the working directory to utilize his version
-$ time java checksum < 156.txt               # Time the execution of the professor's Java version
-$ time ./checksum < 156.txt                  # Time the execution of the professor's C version
-$ popd                                       # Change the workind directory back
-$ time java checksum < 156.txt               # Time the execution of your Java version
-$ exit                                       # Exit the script program
+$ script checksum.typescript 
+$ cat 156.txt | int2byte | checksum
+$ cat 229.txt | int2byte | checksum
+$ cat 81.txt  | int2byte | checksum
+$ exit
 ```
 
-
-### Submission:
-1. The checksum.java source code
+* Submit your assignent to Canvas with the following information:
+1. The URL to your github repo
 1. The checksum.typescript file
 
 # Program Enhancements:
 1. Modify the program and your test cases to use 16-bit integers (i.e., input numbers can now be (I.e., 0..64k, or 0..65535)
-1. Use the first input number to determine the number of integers to be read and store this value in the variable "count".  
-  * The value of "count" is determined by the following java assignment `count = ((number >> 8) & 0x0F)*2;` where number is the first input number read.
 
 # Other Information and Resources:
 This program is based upon the structure if a IPv4 packet.  Although you do not need to understand this structure to complete this assignment, you may want to review some of the material associated with IPv4.  More information will be provided in the lecture.
