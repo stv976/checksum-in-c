@@ -14,9 +14,9 @@ create_input: ints2bytes
 	./ints2bytes < 81.txt > 81.bytes
 
 display_input:
-	od -o i1 156.bytes
-	od -o i1 229.bytes
-	od -o i1 81.bytes
+	od -t u1 156.bytes
+	od -t u1 229.bytes
+	od -t u1 81.bytes
 
 ints2bytes: ints2bytes.c
 
