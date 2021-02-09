@@ -75,7 +75,7 @@ int main (int argc, char * argv[], char ** envp) {
 ```
   fprintf(stdout, "Stored Checksum: %d, Computed Checksum: %d\n", checksum, complement);
   if (checksum != complement ) {
-    fprintf(stdout, "Error Detected!\n"); 
+    fprintf(stderr, "Error Detected!\n"); 
     return 1;
   }
   return 0;
