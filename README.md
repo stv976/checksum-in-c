@@ -122,7 +122,7 @@ $ exit
 1. The checksum.typescript file
 
 # Program Enhancements:
-1. Modify the program and your test cases to use 16-bit integers (i.e., input numbers can now be (I.e., 0..64k, or 0..65535)
+1. Modify the program and your test cases to use 16-bit integers (i.e., input numbers can now be: 0..64k, or 0..65535)
 
 # Other Information and Resources:
 This program is based upon the structure if a IPv4 packet.  Although you do not need to understand this structure to complete this assignment, you may want to review some of the material associated with IPv4.  More information will be provided in the lecture.
