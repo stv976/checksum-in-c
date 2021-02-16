@@ -60,7 +60,7 @@ Your C program should conform to the following specification:
 #include <unistd.h>
 
 #define max_int (255)
-#define byte (unsigned char)
+#define byte unsigned char
 
 int main (int argc, char * argv[], char ** envp) {
 
